@@ -70,79 +70,11 @@ export class Web3ServiceService {
     return article;
   }
 
-  newArticle =  ( artHash: string, link: string, userAddress: string, time: string) => {
-    let article: Acnt = this.myWeb3.eth.accounts.create(this.myWeb3.utils.randomHex(32));
-    let func = this.UZ.methods.newArticle(article.address, artHash, link, userAddress, userAddress, time)
-      .send({from: userAddress, gas: 6000000})
-    return {
-      artid: article.address,
-      function: func
-    }
-  }
-
-  
-  newUser =  ( name: string, emai: string, userAddress: string) => {
-    return this.UZ.methods.newUser(userAddress, name, emai).send({from: userAddress, gas: 6000000});
-  }
-
-  getUser = (userAddress: string) => {
-    this.UZ.methods.getUser(userAddress).call({from: userAddress}).then((v) => {
-      console.log(v);
+  getUser = async (userAddress: string) => {
+    let u = await this.UZ.methods.getUser(userAddress).call({from: userAddress}).then((v) => {
+      return v;
     });
-  }
-
-  vote =  (vote: Boolean, artAddress: string, userAddress: string, voteUD: Number) => {
-    return this.UZ.methods.voteArticle(vote, artAddress).send({from: userAddress.toString(), gas: 6000000})
-    .on('transactionHash', async (tHash: string) => {
-      let vStat;
-      if(voteUD == 1 || voteUD == 5)vStat="Up";
-      else if(voteUD == 3 || voteUD == 6)vStat="Down";
-      else vStat = "Cancel ";
-      this.globals.Notifies.push(
-        {
-          time: String(Date.now()), 
-          status: "Tx. hash generated", 
-          statCode: 1, 
-          msg: vStat+"vote on article", 
-          txHash: tHash, 
-          msgHist: [{}]
-        });
-      console.log(tHash);
-    })
-    .on('receipt', async (tranReceipt) =>{
-      let t = this.globals.Notifies.findIndex(i=>i.txHash == tranReceipt.transactionHash);
-      this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
-      this.globals.Notifies[t].time = String(Date.now());
-      this.globals.Notifies[t].statCode = 2;
-      this.globals.Notifies[t].status = "Tx. receipt generated";
-      console.log(tranReceipt);
-      return true;
-    })
-    .on('error', (err)=>{
-
-      let t = this.globals.Notifies.findIndex(i=>i.txHash == err.transactionHash);
-      if(t){
-        this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
-        this.globals.Notifies[t].time = String(Date.now());
-        this.globals.Notifies[t].statCode = 3;
-        this.globals.Notifies[t].status = "Tx. failed";
-        console.log(err);
-        return false;
-      }
-      else{
-        this.globals.Notifies.push(
-          {
-            time: String(Date.now()), 
-            status: "Tx. failed", 
-            statCode: 3, 
-            msg: (vote==true)?"Up":"Down"+"Vote article", 
-            txHash: "---", 
-            msgHist: [{}]
-          });
-        console.log(err);
-        return false;
-      }
-    });
+    return u;
   }
 
   // vote = async (vote: Boolean, artAddress: string, userAddress: string) => {
@@ -197,7 +129,6 @@ export class Web3ServiceService {
 
 
   donate = async (userAddress: string, toName: String, toAddr: string, amnt:string) => {
-    let cnfrmd: boolean = false;
     this.UZ.methods.donate(toAddr).send({from: userAddress, to: toAddr, gas: 6000000, value: this.myWeb3.utils.toWei(amnt, "ether")})
       .on('transactionHash', async (tHash: string) => {
         this.globals.Notifies.push(
@@ -254,6 +185,190 @@ export class Web3ServiceService {
     //   console.log(err);
     //   return false;
     // });
+
+
+  vote =  (vote: Boolean, artAddress: string, userAddress: string, voteUD: Number) => {
+    return this.UZ.methods.voteArticle(vote, artAddress).send({from: userAddress.toString(), gas: 6000000})
+    .on('transactionHash', async (tHash: string) => {
+      let vStat;
+      if(voteUD == 1 || voteUD == 5)vStat="Up";
+      else if(voteUD == 3 || voteUD == 6)vStat="Down";
+      else vStat = "Cancel ";
+      this.globals.Notifies.push(
+        {
+          time: String(Date.now()), 
+          status: "Tx. hash generated", 
+          statCode: 1, 
+          msg: vStat+"vote on article", 
+          txHash: tHash, 
+          msgHist: [{}]
+        });
+      console.log(tHash);
+    })
+    .on('receipt', async (tranReceipt) =>{
+      let t = this.globals.Notifies.findIndex(i=>i.txHash == tranReceipt.transactionHash);
+      this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+      this.globals.Notifies[t].time = String(Date.now());
+      this.globals.Notifies[t].statCode = 2;
+      this.globals.Notifies[t].status = "Tx. receipt generated";
+      console.log(tranReceipt);
+      return true;
+    })
+    .on('error', (err)=>{
+
+      let t = this.globals.Notifies.findIndex(i=>i.txHash == err.transactionHash);
+      if(t>-1){
+        this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+        this.globals.Notifies[t].time = String(Date.now());
+        this.globals.Notifies[t].statCode = 3;
+        this.globals.Notifies[t].status = "Tx. failed";
+        console.log(err);
+        return false;
+      }
+      else{
+        this.globals.Notifies.push(
+          {
+            time: String(Date.now()), 
+            status: "Tx. failed", 
+            statCode: 3, 
+            msg: (vote==true)?"Up":"Down"+"Vote article", 
+            txHash: "---", 
+            msgHist: [{}]
+          });
+        console.log(err);
+        return false;
+      }
+    });
+  }
+
+  newArticle =  ( artHash: string, link: string, title: string, userAddress: string, time: string) => {
+    let article: Acnt = this.myWeb3.eth.accounts.create(this.myWeb3.utils.randomHex(32));
+    let func = this.UZ.methods.newArticle(article.address, artHash, link, userAddress, userAddress, time)
+      .send({from: userAddress, gas: 6000000})
+      .on('transactionHash', async (tHash: string) => {
+        this.globals.Notifies.push(
+          {
+            time: String(Date.now()), 
+            status: "Tx. hash generated", 
+            statCode: 1, 
+            msg: "New article: "+title, 
+            txHash: tHash, 
+            msgHist: [{}]
+          });
+        console.log(tHash);
+      })
+      .on('receipt', async (tranReceipt) =>{
+        let t = this.globals.Notifies.findIndex(i=>i.txHash == tranReceipt.transactionHash);
+        this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+        this.globals.Notifies[t].time = String(Date.now());
+        this.globals.Notifies[t].statCode = 2;
+        this.globals.Notifies[t].status = "Tx. receipt generated";
+        console.log(tranReceipt);
+        return true;
+      })
+      .on('error', (err)=>{
+
+        let t = this.globals.Notifies.findIndex(i=>i.txHash == err.transactionHash);
+        if(t>-1){
+          this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+          this.globals.Notifies[t].time = String(Date.now());
+          this.globals.Notifies[t].statCode = 3;
+          this.globals.Notifies[t].status = "Tx. failed";
+          console.log(err);
+          return false;
+        }
+        else{
+          this.globals.Notifies.push(
+            {
+              time: String(Date.now()), 
+              status: "Tx. failed", 
+              statCode: 3, 
+              msg: "New article:"+title, 
+              txHash: "---", 
+              msgHist: [{}]
+            });
+          console.log(err);
+          return false;
+        }
+      });
+    return {
+      artid: article.address,
+      function: func
+    }
+  }
+
+  
+  newUser =  (userAddress: string, name: string, emai: string) => {
+    return this.UZ.methods.newUser(userAddress, name, emai).send({from: userAddress, gas: 6000000})
+    .on('transactionHash', async (tHash: string) => {
+      this.globals.Notifies.push(
+        {
+          time: String(Date.now()), 
+          status: "Tx. hash generated", 
+          statCode: 1, 
+          msg: "New user: "+name, 
+          txHash: tHash, 
+          msgHist: [{}]
+        });
+      console.log(tHash);
+    })
+    .on('receipt', async (tranReceipt) =>{
+      let t = this.globals.Notifies.findIndex(i=>i.txHash == tranReceipt.transactionHash);
+      this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+      this.globals.Notifies[t].time = String(Date.now());
+      this.globals.Notifies[t].statCode = 2;
+      this.globals.Notifies[t].status = "Tx. receipt generated";
+      console.log(tranReceipt);
+      return true;
+    })
+    .on('error', (err)=>{
+      let t = this.globals.Notifies.findIndex(i=>i.txHash == err.transactionHash);
+      if(t>-1){
+        this.globals.Notifies[t].msgHist.push({oldm: this.globals.Notifies[t].status, t: this.globals.Notifies[t].time, stat: this.globals.Notifies[t].statCode});
+        this.globals.Notifies[t].time = String(Date.now());
+        this.globals.Notifies[t].statCode = 3;
+        this.globals.Notifies[t].status = "Tx. failed";
+        console.log(err);
+        return false;
+      }
+      else{
+        this.globals.Notifies.push(
+          {
+            time: String(Date.now()), 
+            status: "Something went wrong. Tx. failed", 
+            statCode: 3, 
+            msg: "New user: "+name, 
+            txHash: "---", 
+            msgHist: [{}]
+          });
+        console.log(err);
+        return false;
+      }
+    })
+    // .then((tranReceipt) =>{
+    //   this.globals.Notifies.push(
+    //     {
+    //       time: String(Date.now()), 
+    //       status: name+" is now part of UZ!", 
+    //       statCode: 1, 
+    //       msg: "New user: "+name, 
+    //       txHash: tranReceipt, 
+    //       msgHist: [{}]
+    //     });
+    // })
+    // .catch((e)=>{
+    //   console.log(e);
+    //   this.globals.Notifies.push(
+    //     {
+    //       time: String(Date.now()), 
+    //       status: "Something went wrong. Tx. failed", 
+    //       statCode: 3, 
+    //       msg: "New user: "+name, 
+    //       txHash: "---", 
+    //       msgHist: [{}]
+    //     });
+    // });
+  }  
 
 
 }

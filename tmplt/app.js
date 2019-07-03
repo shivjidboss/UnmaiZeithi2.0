@@ -18,14 +18,14 @@ fastify.get('/url', async (request, reply) => {
     console.log("*************",link, "*********");
 
     const ct = await tmplt(link);
+    console.log(ct);
     const page = `
     <!DOCTYPE html>
     <html>
     <head>${ct.head}</head>
     <body>
     
-        <div>${ct.content}</div>
-        <div>Test</div>
+        <div>${ct.body}</div>
     
     </body>
     </html>`;

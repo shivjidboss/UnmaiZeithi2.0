@@ -17,8 +17,13 @@
                 <input type="text" class="form-control" id="reemail" formControlName="reemail" #reemail>
               </div>
               <div class="form-group">
-                <label for="reemail">Ethereum Address</label>
-                <input type="text" class="form-control" id="userId" formControlName="userId" #userId>
+                <label for="reemail">Ethereum Address &nbsp;&nbsp;</label>
+
+                <span *ngIf="available == 3" style="color: red"><i class="fa fas fa-times" ></i><br>An account already exist with this address</span>
+                <span *ngIf="available == 2" style="color: green"><i class="fa fas fa-check"></i></span>
+                <span *ngIf="available == 1" style="color: yellow"><i class="fa fa-refresh fa-spin"></i></span>
+
+                <input type="text" #userId class="form-control" id="userId" formControlName="userId" (input)="checkAvailability()">
               </div>              
               <div class="form-group">
                 <label for="pwd">Password:</label>
@@ -34,7 +39,7 @@
               <input type="radio" name="gender" id="gen_male" value="male" formControlName="gender" #gender/>
                   <label for="gen_male">Male</label>
               <br><br>
-              <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+              <button type="submit" class="btn btn-primary" [disabled]="disableRegBtn" (click)="onSubmit()">Submit</button>
             </form>
             <!--<div class="or_divider"> OR </div>
               <a class="google-btn" href="/auth/google">

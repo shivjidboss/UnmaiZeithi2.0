@@ -49,7 +49,7 @@ export class DrafterComponent implements OnInit {
     });
   }
 
-  async onSubmit(e, artLink){
+  async onSubmit(artLink){
     //e.preventDefault();
     /* stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -59,7 +59,7 @@ export class DrafterComponent implements OnInit {
     const time: string = Date.toString();
     const linkTemp = this.link+"url?link="+artLink; //To do get Article link
     const prvw: Preview = await this.template.preview(`${this.link}preview?link=${linkTemp}`);
-    const rtrn =  this.web3.newArticle(prvw.hash,artLink,usr.userId,time);
+    const rtrn =  this.web3.newArticle(prvw.hash, artLink, prvw.data.title, usr.userId, time);
     const artId = rtrn.artid;
     
     this.newArticle = {

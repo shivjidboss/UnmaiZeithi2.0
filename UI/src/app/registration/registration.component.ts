@@ -25,6 +25,8 @@ export class RegistrationComponent implements OnInit {
     this.createForm();
   }
 
+  available = 0;
+  disableRegBtn = true;
   registerForm: FormGroup;
   newUser: User;
   message = '';
@@ -66,7 +68,7 @@ export class RegistrationComponent implements OnInit {
     //           this.message = err.error.msg;
     //         });
 
-    this.web3S.newUser(this.newUser.name.toString(),this.newUser.email.toString(),this.newUser.userId.toString())
+    this.web3S.newUser(this.newUser.userId.toString(), this.newUser.name.toString(), this.newUser.email.toString())
     .on('transactionHash',async (th: string) => {
       console.log(th); 
      let c = await this.conf(th); 
@@ -125,5 +127,22 @@ export class RegistrationComponent implements OnInit {
   //     this.message = err.error.msg;
   //   });
   // }
+
+
+  checkAvailability(){
+    let uid = this.registerForm.get('userId').value;
+    this.available = 1;
+    this.disableRegBtn = true;
+    this.web3S.getUser(uid).then(u=>{
+      console.log(u);
+      if(u.name == ""){
+        this.available=2;
+        this.disableRegBtn = false;
+      }
+      else{
+        this.available=3;
+      } 
+    });    
+  }
 
 }
