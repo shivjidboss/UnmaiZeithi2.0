@@ -77,6 +77,7 @@ export class Web3ServiceService {
     return u;
   }
 
+
   // vote = async (vote: Boolean, artAddress: string, userAddress: string) => {
   //   let cnfrmd: boolean = false;
   //   await this.UZ.methods.voteArticle(vote, artAddress).send({from: userAddress.toString(), gas: 6000000})
@@ -368,8 +369,15 @@ export class Web3ServiceService {
     //       msgHist: [{}]
     //     });
     // });
-  }  
+  }
 
+  chkArticleUniq = async (h: string, userAddress: string) => {
+    let u = this.UZ.methods.chkArticleUniq(h).call({from: userAddress}).then((b) =>{
+      return  b;
+    });
+    return u;
+  }
+  
 
 }
 

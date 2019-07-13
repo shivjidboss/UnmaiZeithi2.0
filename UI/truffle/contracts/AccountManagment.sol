@@ -104,4 +104,11 @@ contract AccountManagment is Permission, Vote{
         return string(b);
     }
 
+    function chkArticleUniq(string memory h) public view returns(bool b){
+        if(articleStash[h])
+            return false;
+        else
+            return true;
+    }
+
 }

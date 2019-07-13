@@ -10,7 +10,7 @@
       <li *ngIf="!this.authService.currentUserValue"><a routerLink="/login">Login</a></li>
       <li *ngIf="!this.authService.currentUserValue"><a routerLink="/register">Join Us</a></li>
       <li *ngIf="this.authService.currentUserValue" (click)="logout()"><a>Log Out</a></li>
-      <li (click)="Notifier()"><a><i class="fa fas fa-list-ul"></i></a></li>
+      <li (click)="Notifier()"><a><i class="fa fas fa-list-ul" style="background: none;"></i></a></li>
     </ul>
 
     <div class="notifier" [style.right.px]="notifierPos">

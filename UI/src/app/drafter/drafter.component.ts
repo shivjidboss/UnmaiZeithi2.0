@@ -23,7 +23,8 @@ export class DrafterComponent implements OnInit {
     +"margin-right:auto;margin: 0;position: relative;text-align: center;top: 45%;'>Article Preview Appears Here</div>";
   private myTmplt : any = this.prvwPlaceholder;
   private artHash = "";
-  private disablePublish = true;
+  disablePublish = true;
+  artUniq = 0; 
   private newArticle: Article;
   data;
   message = "";
@@ -41,11 +42,12 @@ export class DrafterComponent implements OnInit {
   }
 
   async getPreview(artLink){
+    this.artUniq = 1;
     const linkTemp = this.link+"url?link="+artLink;
     this.http.get(this.link+"url?link="+artLink,{responseType: 'text'}).subscribe(async (data: any ) => {
       this.myTmplt = data;
       this.artHash = (await this.template.preview(`${this.link}preview?link=${linkTemp}`)).hash;
-      this.disablePublish = false;
+      this.chkArtUniq(this.artHash);
     });
   }
 
@@ -55,6 +57,8 @@ export class DrafterComponent implements OnInit {
     if (this.loginForm.invalid) {
         return;
     }*/
+    this.disablePublish = true;
+    this.artUniq = 1;
     const usr = this.usr.getUserDetails();
     const time: string = Date.toString();
     const linkTemp = this.link+"url?link="+artLink; //To do get Article link
@@ -72,7 +76,7 @@ export class DrafterComponent implements OnInit {
       text: prvw.data.description,
       authorId: usr.userId,
       votes: [],
-      upVotes: 1,
+      upVotes: 0,
       downVotes: 0
     };
 
@@ -107,6 +111,21 @@ export class DrafterComponent implements OnInit {
         await this.web3.delay(1000);
       }
       return (cnfrmd);
+  }
+
+  //  [2.0]
+
+  chkArtUniq = async (h: string) =>{
+    const usr = await this.usr.getUserDetails();
+    let b = await this.web3.chkArticleUniq(h, usr.userId);
+    if( b == true ){
+      this.artUniq = 2;
+      this.disablePublish = false;
+    }
+    else{
+      this.artUniq = 3;
+      this.disablePublish = true;
+    }
   }
 
  

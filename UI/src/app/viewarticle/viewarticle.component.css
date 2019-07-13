@@ -104,7 +104,8 @@
     background: #52b0cc;
     text-align: center;
     font-weight: bold;
-    padding: 5px;
+    font-size: 22px;
+    padding: 2px;
 }
 
 .rankNum{

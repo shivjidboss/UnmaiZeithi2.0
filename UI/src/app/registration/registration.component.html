@@ -40,6 +40,7 @@
                   <label for="gen_male">Male</label>
               <br><br>
               <button type="submit" class="btn btn-primary" [disabled]="disableRegBtn" (click)="onSubmit()">Submit</button>
+              <span *ngIf="sending == 1" style="color: blue"> <i class="fas fa-sync fa-spin" style="font-size: 38px;background: none;"></i></span>
             </form>
             <!--<div class="or_divider"> OR </div>
               <a class="google-btn" href="/auth/google">

@@ -11,6 +11,11 @@
           <span class="input-group-text">Article Hash</span>
         </div>
         <input type="text" [value]="artHash" class="form-control" placeholder="Article Hash Appears Here" aria-label="artHash" readonly>
+
+          <span *ngIf="artUniq == 3" style="color: red"><i class="fa fas fa-times" style="font-size: 38px;background: none;" ></i>This article already exists in UZ</span>
+          <span *ngIf="artUniq == 2" style="color: green"><i class="fa fas fa-check"  style="font-size: 38px;background: none;"></i></span>
+          <span *ngIf="artUniq == 1" style="color: blue"> <i class="fas fa-sync fa-spin" style="font-size: 38px;background: none;"></i></span>
+
       </div>    
 </div>
 

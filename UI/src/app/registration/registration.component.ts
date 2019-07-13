@@ -25,6 +25,7 @@ export class RegistrationComponent implements OnInit {
     this.createForm();
   }
 
+  sending = 0;
   available = 0;
   disableRegBtn = true;
   registerForm: FormGroup;
@@ -49,6 +50,8 @@ export class RegistrationComponent implements OnInit {
     if (this.loginForm.invalid) {
         return;
     }*/
+    this.sending = 1;
+    this.disableRegBtn = true;
     this.newUser = {
       name : this.registerForm.get('name').value,
       email : this.registerForm.get('email').value,

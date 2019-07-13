@@ -50,6 +50,11 @@ export class ViewarticleComponent implements OnInit {
       });
     console.log(this.artId);
     this.art = await this.web3.getArticle(this.artId,this.usr.userId.toString());
+  
+    setTimeout(() => {
+      console.log("this.art: "+JSON.stringify(this.art));
+    }, 10000);
+    
     const vote =await this.web3.getVote(this.artId,this.usr.userId.toString());
     if(vote === 1){
       this.upVoted = 'upvoted';
