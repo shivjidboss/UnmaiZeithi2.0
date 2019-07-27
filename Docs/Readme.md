@@ -1,8 +1,7 @@
 # Unmai Zeithi - 2.0
-# Block-chain for determining authenticity of Information
+
 A simple Ethereum DApp for determining authenticity of information
 ---
-
 
 
 ## Deploy commands
