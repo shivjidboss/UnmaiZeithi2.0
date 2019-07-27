@@ -9,8 +9,6 @@ import { AuthService } from '../services/auth.service';
 import { Web3ServiceService } from '../services/web3-service.service'
 
 import { User } from '../ngDBModels'
-import { async } from 'q';
-import { on } from 'cluster';
 
 @Component({
   selector: 'app-registration',

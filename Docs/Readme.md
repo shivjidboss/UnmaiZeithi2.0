@@ -1,23 +1,30 @@
+# Unmai Zeithi - 2.0
 # Block-chain for determining authenticity of Information
-
+A simple Ethereum DApp for determining authenticity of information
 ---
 
-## Getting started
+
+
+## Deploy commands
+
+Use the following commands to clone the project
 
 ```bash
-git clone https://gitlab.com/abhiramts007/unmaizeithi
+
+git clone https://gitlab.com/shivjidboss/unmaizeithi2.0
+
+cd UZ
+
+sudo docker-compose build
+
 sudo docker-compose up
+
 ```
 
 The application should be available at `http://localhost:4200`
 
 ---
 
-# Unmai Zethi
-
----
-
-A simple Ethereum DApp for determining authenticity of information
 
 ## Introduction
 
@@ -46,7 +53,7 @@ The project contains 4 parts :
 
 ### Prerequisites
 
-This example uses docker-compose and Docker containers. If you do not have these installed please follow the instructions here: <https://docs.docker.com/install/>
+This project uses docker-compose and Docker containers. If you do not have these installed please follow the instructions here: <https://docs.docker.com/install/>
 
 ---
 
@@ -62,7 +69,11 @@ Before starting the project make sure the Docker service is up and running.
 
 To start up the environment, perform the following tasks:
 
-a)Open a terminal window. b)Change your working directory to the same directory where you saved the Docker Compose file. c)Run the following command:
+a)Open a terminal window.
+
+b)Change your working directory to the same directory where you saved the Docker Compose file.
+ 
+c)Run the following commands:
 
 ```bash
 sudo docker-compose up --build

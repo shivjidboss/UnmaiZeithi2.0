@@ -7,7 +7,7 @@ WORKDIR /usr/share/workdir/geth
 
 COPY . .
 
-RUN rm -r ./data/geth
+#RUN rm -r ./data/geth
 
 RUN geth --datadir data init genesis.json
 

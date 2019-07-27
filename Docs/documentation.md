@@ -1,6 +1,6 @@
  
 
-![flowchart](/home/abhiram/Documents/Docs/flowchart.png)
+![flowchart](./flowchart.png)
 
 
 

@@ -21,7 +21,7 @@
 
                 <span *ngIf="available == 3" style="color: red"><i class="fa fas fa-times" ></i><br>An account already exist with this address</span>
                 <span *ngIf="available == 2" style="color: green"><i class="fa fas fa-check"></i></span>
-                <span *ngIf="available == 1" style="color: yellow"><i class="fa fa-refresh fa-spin"></i></span>
+                <span *ngIf="available == 1" style="color: blue"><i class="fa fa-refresh fa-spin"></i></span>
 
                 <input type="text" #userId class="form-control" id="userId" formControlName="userId" (input)="checkAvailability()">
               </div>              

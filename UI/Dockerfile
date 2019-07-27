@@ -30,4 +30,4 @@ RUN ls \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-EXPOSE 80 4200 
+EXPOSE 80 4200 8545 30303

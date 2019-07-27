@@ -1,19 +1,19 @@
 {
     "difficulty": "0x400",
     "alloc": {
-        "74ad3ffe238bc8cc29429ddfbdd9b045802c1250": {
+        "Eaf6e1799A19C5D91e262703f27Ab5EB62e27E18": {
             "balance": "0xF453625CFFC4F000000"
         },
-        "2b461c36d94eff7202c19648bdcd68838c81591e": {
+        "430A59d0E22D682cF916Ec353fd06B6f15361a15": {
             "balance": "0xF453625CFFC4F000000"
         },
-        "2c08d4a4bbd25cf4819dba84aadff3903576261c": {
+        "3787304aBC26036d21B3C52F8aE1757Ee6f821e4": {
             "balance": "0xF453625CFFC4F000000"
         },
-        "2cf7f0365425a63f597e5c3764adb8ac4c29b29f": {
+        "4BA08968a7dBdE2BB38c93578bc222043B593f14": {
             "balance": "0xF453625CFFC4F000000"
         },
-        "ec343c0da09f03a154b83cd4e302cb82f398beee": {
+        "7CC101aC9167D281D7fAc35531A5E9F19B02d830": {
             "balance": "0xF453625CFFC4F000000"
         }
     },
