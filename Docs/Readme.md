@@ -3,6 +3,20 @@
 A simple Ethereum DApp for determining authenticity of information
 ---
 
+##Testnet Deployments
+
+- Ropsten:
+
+    contract address: 0x3Eb5EA89f7Dc26B23Ec6aD3d5700b1cB1e8Da32D
+
+    etherscan: https://ropsten.etherscan.io/address/0x3eb5ea89f7dc26b23ec6ad3d5700b1cb1e8da32d
+
+- Rinkeby:
+
+    contract address: 0x4C6F76db52fb8146A140aEfc09EcBcD0Ca32B055
+    
+    etherscan: https://rinkeby.etherscan.io/address/0x4C6F76db52fb8146A140aEfc09EcBcD0Ca32B055
+
 
 ## Deploy commands
 
@@ -21,6 +35,9 @@ sudo docker-compose up
 ```
 
 The application should be available at `http://localhost:4200`
+
+**NOTE**
+To deploy in other networks modify "docker-compose.yml"
 
 ---
 

@@ -23,6 +23,7 @@ const infuraKey = "e1bebdf8e8884fa38c96336d6f370913";
 
 const fs = require('fs');
 const mnemonic = fs.readFileSync(".secret").toString().trim();
+//const mnemonic = "fruit rude trouble ... carry arrange";
 
 module.exports = {
   /**
@@ -56,15 +57,21 @@ module.exports = {
     },
 
     ropsten: {
-      provider: function() {
-        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/" + infuraKey);
-      },
-      network_id: 3
+      provider: new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/" + infuraKey),
+      network_id: 3,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
     },  
     
     rinkeby: {
-      provider: () => new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/" + infuraKey),
-      network_id: 4
+      provider: new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/" + infuraKey),
+      network_id: 4,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
     }, 
 
     // Another network with more advanced options...
