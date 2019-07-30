@@ -17,14 +17,12 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
-// const HDWalletProvider = require("truffle-hdwallet-provider");
-// const mnemonic = "unfair another online cost response motion castle clump fortune diary vintage myself";
 
-// const HDWalletProvider = require('truffle-hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const infuraKey = "e1bebdf8e8884fa38c96336d6f370913";
+
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
   /**
@@ -56,12 +54,18 @@ module.exports = {
       network_id: "4002",
       gas: 62831850
     },
-    // ropsten: {
-    //   provider: function() {
-    //     return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/637f380b05eb4075a578bb8a81d4216e")
-    //   },
-    //   network_id: 3
-    // },   
+
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/" + infuraKey);
+      },
+      network_id: 3
+    },  
+    
+    rinkeby: {
+      provider: () => new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/" + infuraKey),
+      network_id: 4
+    }, 
 
     // Another network with more advanced options...
     // advanced: {
