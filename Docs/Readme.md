@@ -25,6 +25,8 @@ Use the following commands to clone the project
 ```bash
 
 git clone https://gitlab.com/shivjidboss/UnmaiZeithi2.0
+                    or
+git clone https://github.com/shivjidboss/UnmaiZeithi2.0
 
 cd UnmaiZeithi2.0
 
