@@ -16,7 +16,19 @@ services:
       - './UI/truffle:/usr/share/workdir/UI/truffle'
       # - /usr/share/workdir/UI/truffle/build
 
-    command: bash -c "ls && (cd ./truffle && truffle migrate --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    # ??? Run this command for first deployment (local)
+    #command: bash -c "ls && (cd ./truffle && truffle migrate --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    
+    # ??? Run this command for subsequent deployments (local)
+    command: bash -c "ls && (cd ./truffle && rm -r build && truffle migrate --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    
+    # ??? Run this for deploying in Ropsten network
+    #command: bash -c "ls && (cd ./truffle && rm -r build && truffle migrate --network ropsten --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    
+    # ??? Run this for deploying in Rinkeby network
+    #command: bash -c "ls && (cd ./truffle && rm -r build && truffle migrate --network rinkeby --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+
+    
     # command: bash -c "ls && (cd ./truffle && ( if [ -d "build" ]; then rm -r build && echo "removing previous build"; fi ) && truffle migrate --force) && node patch.js && ng build && cp nginx.conf /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
     depends_on: 
       - 'geth'
