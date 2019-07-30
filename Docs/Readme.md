@@ -1,9 +1,9 @@
 # Unmai Zeithi - 2.0
 
-A simple Ethereum DApp for determining authenticity of information
+A simple Ethereum DApp for sharing and discovering credible and useful news articles.
 ---
 
-##Testnet Deployments
+## Testnet Deployments
 
 - Ropsten:
 
@@ -39,7 +39,8 @@ sudo docker-compose up
 The application should be available at `http://localhost:4200`
 
 **NOTE**
-To deploy in other networks modify "docker-compose.yml"
+- To deploy in other networks modify "docker-compose.yml"
+- Currently only medium.com articles are supported
 
 ---
 
