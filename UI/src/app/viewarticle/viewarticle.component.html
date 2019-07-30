@@ -7,6 +7,7 @@
 </div>
 
 <div class="fdbckBox">
+  <h4>Author: <a routerLink="/profile/{{this.articleFromDB.authorId}}">{{this.articleFromDB.author}}</a></h4>
   <a>
     <div class="fdbckBtn upBtn {{upVoted}}" (click)="upVote()">
       <div class="upNum">{{this.articleFromDB.upVotes}}</div>

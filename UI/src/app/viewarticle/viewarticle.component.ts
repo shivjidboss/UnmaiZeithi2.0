@@ -56,13 +56,14 @@ export class ViewarticleComponent implements OnInit {
     }, 10000);
     
     const vote =await this.web3.getVote(this.artId,this.usr.userId.toString());
-    if(vote === 1){
-      this.upVoted = 'upvoted';
-      this.downVoted = '';
+    console.log("Vote: "+vote);
+    if(vote == 1){
+      this.upVoted = "upvoted";
+      this.downVoted = "";
     }
-    if(vote === 2){
-      this.downVoted = 'downvoted';
-      this.upVoted = '';
+    if(vote == 2){
+      this.downVoted = "downvoted";
+      this.upVoted = "";
     }
   }
 
@@ -75,17 +76,18 @@ export class ViewarticleComponent implements OnInit {
 
   async checkVotedOrNot(){
     let vote = await this.web3.getVote(this.artId,this.usr.userId.toString());
-    if(vote === 1){
-      this.upVoted = 'upvoted';
-      this.downVoted = '';
+    console.log("Vote: "+vote);
+    if(vote == 1){
+      this.upVoted = "upvoted";
+      this.downVoted = "";
     }
-    else if(vote === 2){
-      this.downVoted = 'downvoted';
-      this.upVoted = '';
+    else if(vote == 2){
+      this.downVoted = "downvoted";
+      this.upVoted = "";
     }
     else{
-      this.upVoted = '';
-      this.downVoted = '';
+      this.upVoted = "";
+      this.downVoted = "";
     }
   }
 

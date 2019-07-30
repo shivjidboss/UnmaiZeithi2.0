@@ -130,7 +130,7 @@ export class Web3ServiceService {
 
 
   donate = async (userAddress: string, toName: String, toAddr: string, amnt:string) => {
-    this.UZ.methods.donate(toAddr).send({from: userAddress, to: toAddr, gas: 6000000, value: this.myWeb3.utils.toWei(amnt, "ether")})
+    this.UZ.methods.donate(toAddr).send({from: userAddress, to: toAddr, gas: 6000000, value: this.myWeb3.utils.toWei(amnt.toString(), "ether")})
       .on('transactionHash', async (tHash: string) => {
         this.globals.Notifies.push(
           {

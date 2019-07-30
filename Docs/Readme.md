@@ -12,7 +12,7 @@ Use the following commands to clone the project
 
 git clone https://gitlab.com/shivjidboss/unmaizeithi2.0
 
-cd UZ
+cd UnmaiZeithi2.0
 
 sudo docker-compose build
 
